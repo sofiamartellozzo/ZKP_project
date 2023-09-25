@@ -149,16 +149,24 @@ tree = ZkMerkleTree(w)
 root = tree.get_root
 print('the root is', tree.get_root())
 # VERIFIER
+print('Choose an index between 0 and ', len(l))
 i = int(input())
 print('I want i= ', i)
 # PROVER
-print('The two elements are ', w[i], w[i+1])
-val1, path1 = tree.get_val_and_path(i)
-val2, path2 = tree.get_val_and_path(i+1)
-print('The path of elem i is: ', tree.get_val_and_path(i))
-print('The path of elem i+1 is: ', tree.get_val_and_path(i+1))
+if i < len(l):
+    i1 = i
+    i2 = i+1
+else:
+    i1 = 0
+    i2 = len(l)
+print('The two elements are ', w[i1], w[i2])
+val1, path1 = tree.get_val_and_path(i1)
+val2, path2 = tree.get_val_and_path(i2)
+print('The path of first elem is: ', tree.get_val_and_path(i1))
+print('The path of second elem is: ', tree.get_val_and_path(i2))
 # VERIFIER
-sol = verify_zk_merkle_path(tree.get_root(), len(l)+1, i, val1, path1)
-print(sol)
-
+sol1 = verify_zk_merkle_path(tree.get_root(), len(l)+1, i1, val1, path1)
+print(sol1)
+sol2 = verify_zk_merkle_path(tree.get_root(), len(l)+1, i2, val2, path2)
+print(sol2)
 
